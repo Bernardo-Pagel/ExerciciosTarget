@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Percentual de Representação dos Estados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Estado</th>
+        <th>Percentual</th>
+      </tr>
+    </thead>
+    <tbody id="tabela">
+    </tbody>
+  </table>
+  <script>
+    // Valores de faturamento por estado
+    const faturamento = {
+      SP: 67836.43,
+      RJ: 36678.66,
+      MG: 29229.88,
+      ES: 27165.48,
+      Outros: 19849.53
+    };
+    // Calcula o valor total do faturamento
+    const totalFaturamento = Object.values(faturamento).reduce((acumulador, valor) => acumulador + valor, 0);
+    console.log(totalFaturamento)
+    // Calcula o percentual de representação de cada estado
+    const percentualRepresentacao = {};
+    for (const estado in faturamento) {
+      percentualRepresentacao[estado] = (faturamento[estado] / totalFaturamento * 100).toFixed(2) + '%';
+    }
+    // Exibe os resultados
+    const tabelaDados = document.getElementById('tabela');
+    for (const estado in percentualRepresentacao) {
+      const tr = document.createElement('tr');
+      const tdEstado = document.createElement('td');
+      const tdPercentual = document.createElement('td');
+      tdEstado.textContent = estado;
+      tdPercentual.textContent = percentualRepresentacao[estado];
+      tr.appendChild(tdEstado);
+      tr.appendChild(tdPercentual);
+      tabelaDados.appendChild(tr);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p>Menor valor de faturamento: R$ <input type="text" id="menorFaturamento"></p>
+  <p>Maior valor de faturamento: R$ <input type="text" id="maiorFaturamento"></p>
+  <p>Número de dias com faturamento acima da média: <input type="text" id="diasAcimaDaMedia"></p>
+  <script>
+    // Função para processar o faturamento
+    async function processarFaturamento() {
+      try {
+        const response = await fetch('dados.json');
+        const faturamentos = await response.json();
+        // Filtro dias com faturamento
+        const diasComFaturamento = faturamentos.filter(item => item.valor > 0);
+        if (diasComFaturamento.length === 0) {
+          console.log("Nenhum faturamento registrado.");
+          return;
+        }
+        // Menor e o maior valor de faturamento
+        let menorFaturamento = Math.min(...diasComFaturamento.map(item => item.valor));
+        let maiorFaturamento = Math.max(...diasComFaturamento.map(item => item.valor));
+        // Calcular a média mensal
+        let somaFaturamento = diasComFaturamento.reduce((acumulador, item) => acumulador + item.valor, 0);
+        let mediaMensal = somaFaturamento / diasComFaturamento.length;
+        // Contador de dias com faturamento acima da média
+        let diasAcimaDaMedia = diasComFaturamento.filter(item => item.valor > mediaMensal).length;
+        // Exibe os resultados
+        document.getElementById('menorFaturamento').value = menorFaturamento
+        document.getElementById('maiorFaturamento').value = maiorFaturamento
+        document.getElementById('diasAcimaDaMedia').value = diasAcimaDaMedia
+      } catch (error) {
+        console.error("Erro ao carregar o arquivo de faturamento:", error);
+      }
+    }
+    processarFaturamento();
+  </script>
+</body>
+
+</html>

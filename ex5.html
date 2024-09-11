@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <label for="stringOriginal">Digite um texto para inverter:</label>
+  <input type="text" id="stringOriginal" />
+  <button onclick="inverterString()">Inverter String</button>
+  <p>Texto invertido: <input type="text" id="stringInvertida"></p>
+  <script>
+    // Função para inverter uma string
+    function inverterString() {
+      const texto = document.getElementById('stringOriginal').value
+      let stringInvertida = '';
+      for (let i = texto.length - 1; i >= 0; i--) {
+        stringInvertida += texto[i];
+      }
+      // Exibe o resultado
+      return document.getElementById('stringInvertida').value = `${stringInvertida} `;
+    }
+  </script>
+</body>
+
+</html>

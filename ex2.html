@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Verificar Número na Sequência de Fibonacci</h1>
+  <label for="numero">Digite um número:</label>
+  <input type="number" id="numero" />
+  <button onclick="verificarNumero()">Verificar</button>
+  <p id="resultado"></p>
+
+  <script>
+    // Função recursiva para verificar se um número pertence à sequência de Fibonacci
+    function pertenceFibonacci(numero, a = 0, b = 1) {
+      if (numero === a || numero === b) {
+        return true;
+      }
+      // se o número é menor que 'a', então não pertence à sequência
+      if (a > numero) {
+        return false;
+      }
+      // Chama recursivamente a função para o próximo par de números
+      return pertenceFibonacci(numero, b, a + b);
+    }
+    // Função para tratar a entrada do usuário e exibir o resultado
+    function verificarNumero() {
+      const numeroInput = document.getElementById('numero').value;
+      const numero = parseInt(numeroInput, 10);
+      if (isNaN(numero) || numero < 0) {
+        document.getElementById('resultado').textContent = 'Por favor, insira um número positivo válido.';
+        return;
+      } else {
+        const resultado = pertenceFibonacci(numero);
+        // Exibe o resultado
+        document.getElementById('resultado').textContent = `O número ${numero} ${resultado ? 'pertence' : 'não pertence'} à sequência de Fibonacci.`;
+      }
+    }   
+  </script>
+</body>
+
+</html>
